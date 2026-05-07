@@ -443,34 +443,41 @@ h1 {
 .home-promise {
   display: flex;
   align-items: baseline;
-  gap: 14px;
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 1;
+  gap: clamp(12px, 4vw, 20px);
   margin-top: 8px;
+  line-height: 1;
 }
-.home-promise-num {
-  font-size: clamp(72px, 22vw, 120px);
-  color: var(--color-ash);
+.home-promise-ghost {
+  font-size: clamp(48px, 14vw, 80px);
   font-weight: 500;
+  color: var(--color-pebble);
+  letter-spacing: -0.04em;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--color-ash);
   line-height: 0.9;
 }
-.home-promise-num.strong {
+.home-promise-hero {
+  font-size: clamp(120px, 38vw, 220px);
+  font-weight: 500;
   color: var(--color-ink);
-}
-.home-promise-arrow {
-  font-size: clamp(32px, 9vw, 52px);
-  color: var(--color-pebble);
-  font-weight: 300;
-  transform: translateY(-12px);
+  letter-spacing: -0.05em;
+  line-height: 0.8;
 }
 
 .home-promise-text {
-  font-size: 17px;
-  line-height: 1.5;
-  letter-spacing: -0.015em;
-  color: var(--color-muted);
-  margin-top: -8px;
+  font-size: clamp(24px, 7vw, 36px);
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+}
+.home-promise-sub {
+  font-size: clamp(24px, 7vw, 36px);
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+  color: var(--color-ash);
 }
 
 .home-hint {

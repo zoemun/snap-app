@@ -12,28 +12,18 @@ export default function Home({ saved, onStart, onReset }) {
   if (!saved) {
     return (
       <>
-        <div className="home-eyebrow">워런 버핏의 25/5 전략</div>
-
         <div className="home-hero">
-          <h1 className="home-title">이걸보고<br />정신차려!</h1>
-
-          <div className="home-promise">
-            <span className="home-promise-num">100</span>
-            <span className="home-promise-arrow">→</span>
-            <span className="home-promise-num strong">5</span>
-          </div>
-
           <p className="home-promise-text">
-            머릿속에 떠도는 백 개,<br />
-            진짜 다섯 개로 정리해드립니다.
+            하고 싶은 게 100개쯤 되시죠?<br />
+            다 하실 수 있을까요?
           </p>
+          <p className="home-promise-sub">제가 도와드릴게요</p>
         </div>
 
         <div className="bottom-bar">
           <button className="btn-primary" onClick={onStart}>
-            한번 해보실까요
+            시작하기
           </button>
-          <p className="home-hint">2분이면 충분해요</p>
         </div>
       </>
     )
