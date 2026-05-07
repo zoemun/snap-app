@@ -116,103 +116,119 @@ h1 {
   padding-bottom: 8px;
 }
 
-/* ── Step1: goal inputs (white card) ── */
-.goals-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  margin-bottom: 16px;
-  background: var(--color-white);
-  border-radius: 16px;
-  padding: 8px 20px;
-}
-.goal-input-wrap {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 0;
-  border-bottom: 1px solid var(--color-cloud);
-}
-.goal-input-wrap:last-child { border-bottom: none; }
 
-.goal-num {
-  font-size: 13px;
+/* ── Step1: Card input ── */
+.card-step-header {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 32px;
+}
+.card-step-count {
+  font-size: clamp(64px, 20vw, 100px);
+  font-weight: 500;
+  color: var(--color-ink);
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+}
+.card-step-total {
+  font-size: 20px;
   font-weight: 500;
   color: var(--color-ash);
-  min-width: 22px;
-  letter-spacing: 0;
+  letter-spacing: -0.02em;
 }
-.goal-input {
+
+.card-input-area {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 24px;
+  padding: 20px 0;
+}
+.card-input {
+  width: 100%;
   background: transparent;
   border: none;
   outline: none;
-  font-size: 16px;
-  font-weight: 400;
-  color: var(--color-ink);
-  padding: 0;
-  letter-spacing: -0.01em;
-}
-.goal-input::placeholder {
-  color: var(--color-ash);
-  font-weight: 400;
-}
-
-.goal-delete-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  background: transparent;
-  border: 1px solid rgba(10, 10, 10, 0.15);
-  border-radius: 100px;
-  color: var(--color-ash);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-.goal-delete-btn:hover {
-  border-color: var(--color-ink);
-  color: var(--color-ink);
-}
-
-.add-goal-btn {
-  width: 100%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 14px 20px;
-  background: rgba(0, 0, 0, 0.06);
-  color: var(--color-ink);
-  border: none;
-  border-radius: 100px;
-  font-size: 14px;
+  font-size: clamp(24px, 7vw, 36px);
   font-weight: 500;
+  color: var(--color-ink);
+  letter-spacing: -0.03em;
+  padding: 0;
+  border-bottom: 2px solid var(--color-pebble);
+  padding-bottom: 12px;
+  transition: border-color 0.15s;
+}
+.card-input:focus {
+  border-color: var(--color-ink);
+}
+.card-input::placeholder {
+  color: var(--color-pebble);
+  font-weight: 400;
+}
+
+.card-nav {
+  display: flex;
+  gap: 8px;
+}
+.card-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.06);
+  border: none;
+  color: var(--color-ink);
   cursor: pointer;
   transition: all 0.15s;
-  margin-top: 12px;
-  box-shadow: var(--shadow-pill-inset);
-  letter-spacing: -0.01em;
 }
-.add-goal-btn:hover:not(:disabled) {
-  background: rgba(0, 0, 0, 0.09);
+.card-nav-btn:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.1);
 }
-.add-goal-btn:disabled {
-  color: var(--color-ash);
+.card-nav-btn:disabled {
+  color: var(--color-pebble);
   cursor: not-allowed;
 }
 
-.goal-count-hint {
-  margin-top: 16px;
-  font-size: 13px;
-  color: var(--color-slate);
-  text-align: center;
-  letter-spacing: -0.01em;
+.card-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 16px 0;
 }
-.goal-count-hint span {
-  color: var(--color-ink);
+.card-pill {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100px;
+  border: none;
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--color-pebble);
+  font-size: 11px;
   font-weight: 500;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.card-pill.filled {
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--color-ink);
+}
+.card-pill.active {
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+
+.card-hint {
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-ash);
+  letter-spacing: -0.01em;
+  padding: 16px 0;
 }
 
 /* ── Bottom bar (sticky CTA) ── */
@@ -448,24 +464,6 @@ h1 {
   margin-top: 8px;
   line-height: 1;
 }
-.home-promise-ghost {
-  font-size: clamp(48px, 14vw, 80px);
-  font-weight: 500;
-  color: var(--color-pebble);
-  letter-spacing: -0.04em;
-  text-decoration: line-through;
-  text-decoration-thickness: 2px;
-  text-decoration-color: var(--color-ash);
-  line-height: 0.9;
-}
-.home-promise-hero {
-  font-size: clamp(120px, 38vw, 220px);
-  font-weight: 500;
-  color: var(--color-ink);
-  letter-spacing: -0.05em;
-  line-height: 0.8;
-}
-
 .home-promise-text {
   font-size: clamp(24px, 7vw, 36px);
   font-weight: 700;

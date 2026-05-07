@@ -1,46 +1,55 @@
-import { useRef } from 'react'
-import { Plus, X, ChevronLeft } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 const MAX_GOALS = 25
 const MIN_GOALS = 6
 
 export default function Step1({ goals, setGoals, onNext, onBack }) {
-  const inputRefs = useRef([])
+  const [current, setCurrent] = useState(() => {
+    const lastFilled = goals.findLastIndex(g => g.trim())
+    return lastFilled >= 0 ? lastFilled : 0
+  })
+  const inputRef = useRef(null)
 
-  function addGoal() {
-    if (goals.length >= MAX_GOALS) return
-    setGoals(prev => [...prev, ''])
-    setTimeout(() => {
-      inputRefs.current[goals.length]?.focus()
-    }, 50)
-  }
+  useEffect(() => {
+    if (goals.length === 0) {
+      setGoals([''])
+    }
+  }, [])
 
-  function updateGoal(i, val) {
-    setGoals(prev => prev.map((g, idx) => idx === i ? val : g))
-  }
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [current])
 
-  function removeGoal(i) {
-    setGoals(prev => prev.filter((_, idx) => idx !== i))
-  }
+  const filledCount = goals.filter(g => g.trim()).length
+  const canNext = filledCount >= MIN_GOALS
+  const currentValue = goals[current] || ''
+  const isCurrentFilled = currentValue.trim().length > 0
 
-  function handleKeyDown(e, i) {
-    if (e.key === 'Enter') {
-      e.preventDefault()
-      if (i === goals.length - 1 && goals.length < MAX_GOALS) {
-        addGoal()
-      } else {
-        inputRefs.current[i + 1]?.focus()
+  function goNext() {
+    if (!isCurrentFilled) return
+    if (current + 1 >= goals.length) {
+      if (goals.length < MAX_GOALS) {
+        setGoals(prev => [...prev, ''])
       }
     }
-    if (e.key === 'Backspace' && goals[i] === '' && goals.length > 1) {
+    setCurrent(prev => Math.min(prev + 1, MAX_GOALS - 1))
+  }
+
+  function goPrev() {
+    if (current > 0) setCurrent(prev => prev - 1)
+  }
+
+  function handleKeyDown(e) {
+    if (e.key === 'Enter') {
       e.preventDefault()
-      removeGoal(i)
-      setTimeout(() => inputRefs.current[i - 1]?.focus(), 0)
+      goNext()
     }
   }
 
-  const filledGoals = goals.filter(g => g.trim()).length
-  const canNext = filledGoals >= MIN_GOALS
+  function updateCurrent(val) {
+    setGoals(prev => prev.map((g, i) => i === current ? val : g))
+  }
 
   return (
     <>
@@ -50,71 +59,63 @@ export default function Step1({ goals, setGoals, onNext, onBack }) {
         ))}
       </div>
 
-      <div className="page-header">
-        <div className="step-label">1단계</div>
-        <h1>하고 싶은 게 많은 당신!</h1>
-        <p>여기에 모두 적어보세요.</p>
+      <div className="card-step-header">
+        <span className="card-step-count">{current + 1}</span>
+        <span className="card-step-total">/ {MAX_GOALS}</span>
       </div>
 
-      <div className="scroll-content">
-        {goals.length > 0 && (
-          <div className="goals-list">
-            {goals.map((goal, i) => (
-              <div key={i} className="goal-input-wrap">
-                <span className="goal-num">{i + 1}</span>
-                <input
-                  ref={el => inputRefs.current[i] = el}
-                  className="goal-input"
-                  type="text"
-                  value={goal}
-                  placeholder="목표를 입력하세요"
-                  onChange={e => updateGoal(i, e.target.value)}
-                  onKeyDown={e => handleKeyDown(e, i)}
-                  autoFocus={i === goals.length - 1 && goals.length === 1}
-                />
-                {goals.length > 1 && (
-                  <button className="goal-delete-btn" onClick={() => removeGoal(i)}>
-                    <X size={14} />
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
+      <div className="card-input-area">
+        <input
+          ref={inputRef}
+          className="card-input"
+          type="text"
+          value={currentValue}
+          placeholder="목표를 입력하세요"
+          onChange={e => updateCurrent(e.target.value)}
+          onKeyDown={handleKeyDown}
+          autoFocus
+        />
 
-        {goals.length === 0 && (
-          <p style={{ color: 'var(--text-muted)', fontSize: 14, paddingTop: 20, textAlign: 'center' }}>
-            아래 버튼을 눌러 목표를 추가해보세요
-          </p>
-        )}
+        <div className="card-nav">
+          <button
+            className="card-nav-btn"
+            onClick={goPrev}
+            disabled={current === 0}
+          >
+            <ChevronLeft size={20} />
+          </button>
+          <button
+            className="card-nav-btn"
+            onClick={goNext}
+            disabled={!isCurrentFilled}
+          >
+            <ChevronRight size={20} />
+          </button>
+        </div>
+      </div>
 
-        <button
-          className="add-goal-btn"
-          onClick={addGoal}
-          disabled={goals.length >= MAX_GOALS}
-        >
-          <Plus size={16} />
-          목표 추가 {goals.length}/{MAX_GOALS}
-        </button>
-
-        {goals.length > 0 && (
-          <p className="goal-count-hint">
-            {filledGoals < MIN_GOALS
-              ? <><span>{MIN_GOALS - filledGoals}개</span> 더 추가하면 다음으로 넘어갈 수 있어요</>
-              : <><span>{filledGoals}개</span> 작성 완료 ✓</>
-            }
-          </p>
-        )}
+      <div className="card-pills">
+        {goals.map((g, i) => (
+          <button
+            key={i}
+            className={`card-pill ${i === current ? 'active' : ''} ${g.trim() ? 'filled' : ''}`}
+            onClick={() => setCurrent(i)}
+          >
+            {i + 1}
+          </button>
+        ))}
       </div>
 
       <div className="bottom-bar">
-        <button
-          className="btn-primary"
-          onClick={onNext}
-          disabled={!canNext}
-        >
-          다음
-        </button>
+        {canNext ? (
+          <button className="btn-primary" onClick={onNext}>
+            {filledCount}개 작성 완료 — 다음
+          </button>
+        ) : (
+          <p className="card-hint">
+            {MIN_GOALS - filledCount}개 더 작성하면 다음으로 넘어갈 수 있어요
+          </p>
+        )}
         <button className="btn-ghost" onClick={onBack}>
           <ChevronLeft size={16} style={{ display: 'inline', marginRight: 4 }} />
           돌아가기
