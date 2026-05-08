@@ -44,7 +44,7 @@ export default function Step1({ goals, setGoals, onNext, onBack }) {
   }
 
   function handleKeyDown(e) {
-    if (e.key === 'Enter' && !e.repeat) {
+    if (e.key === 'Enter' && !e.repeat && !e.nativeEvent.isComposing) {
       e.preventDefault()
       goNext()
     }
