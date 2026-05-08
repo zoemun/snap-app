@@ -32,7 +32,7 @@ export default function Home({ saved, onStart, onReset }) {
   return (
     <>
       <div className="home-header">
-        <h1 className="home-title">이걸보고<br />정신차려!</h1>
+        <h1 className="home-title">우선순위<br />정하기</h1>
       </div>
 
       <div className="scroll-content">
