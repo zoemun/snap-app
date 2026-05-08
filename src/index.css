@@ -406,18 +406,26 @@ h1 {
 .avoid-warning {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
-  padding: 16px 20px;
+  gap: 12px;
+  padding: 20px;
   background: var(--color-gold);
   border-radius: 12px;
-  font-size: 13px;
   color: var(--color-ink);
   line-height: 1.5;
   letter-spacing: -0.01em;
 }
-.avoid-warning strong {
-  color: var(--color-ink);
-  font-weight: 500;
+.avoid-warning-main {
+  font-size: 15px;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.avoid-warning-main strong {
+  font-weight: 600;
+}
+.avoid-warning-sub {
+  font-size: 13px;
+  color: var(--color-slate);
+  line-height: 1.55;
 }
 .result-avoid-card {
   margin-top: 12px;
