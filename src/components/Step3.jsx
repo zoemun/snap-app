@@ -37,8 +37,8 @@ export default function Step3({ goals, selected, onSave, onBack }) {
             <div className="avoid-warning">
               <AlertTriangle size={18} color="var(--danger)" style={{ flexShrink: 0, marginTop: 2 }} />
               <div>
-                <p className="avoid-warning-main">이것들은 "나중에 할 것"이 아닙니다.<br /><strong>절대 손대지 마세요.</strong></p>
-                <p className="avoid-warning-sub">관심이 가더라도 무시하세요. 이것들이 위험한 이유는 하고 싶을 만큼 끌리기 때문입니다. 위 5개에 올인하지 못하게 만드는 가장 큰 적입니다.</p>
+                <p className="avoid-warning-main"><strong>절대 손대지 마세요.</strong><br />위 5개에 올인하지 못하게 만드는 가장 큰 적입니다.</p>
+                <p className="avoid-warning-sub">이것들은 "나중에 할 것"이 아닙니다.<br />관심이 가더라도 무시하세요. 이것들이 위험한 이유는 하고 싶을 만큼 끌리기 때문입니다.</p>
               </div>
             </div>
             <div className="result-avoid-card" style={{ marginTop: 10 }}>
