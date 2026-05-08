@@ -14,7 +14,7 @@
   --color-pebble: #dddddd;
   --color-ash: #ababab;
   --color-slate: #555555;
-  --color-gold: #ffd700;
+  --color-gold: #fef3cd;
   --color-canvas: #f0f0f0;
 
   --gradient-glow: linear-gradient(90deg, #c679c4, #fa3d1d, #ffb005);
@@ -118,21 +118,20 @@ h1 {
 
 
 /* ── Step1: Card input ── */
-.card-step-header {
+.card-step-count-inline {
   display: flex;
   align-items: baseline;
-  gap: 4px;
-  margin-bottom: 32px;
+  gap: 2px;
+  margin-bottom: 12px;
 }
-.card-step-count {
-  font-size: clamp(64px, 20vw, 100px);
-  font-weight: 500;
+.card-step-num {
+  font-size: 28px;
+  font-weight: 600;
   color: var(--color-ink);
-  letter-spacing: -0.04em;
-  line-height: 0.9;
+  letter-spacing: -0.03em;
 }
 .card-step-total {
-  font-size: 20px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--color-ash);
   letter-spacing: -0.02em;
@@ -404,10 +403,7 @@ h1 {
 }
 
 .avoid-warning {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 20px;
+  padding: 16px;
   background: var(--color-gold);
   border-radius: 12px;
   color: var(--color-ink);
@@ -415,7 +411,7 @@ h1 {
   letter-spacing: -0.01em;
 }
 .avoid-warning-main {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
   margin-bottom: 8px;
 }
@@ -423,7 +419,7 @@ h1 {
   font-weight: 700;
 }
 .avoid-warning-sub {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--color-slate);
   line-height: 1.55;
 }

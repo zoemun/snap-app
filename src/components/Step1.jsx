@@ -62,12 +62,17 @@ export default function Step1({ goals, setGoals, onNext, onBack }) {
         ))}
       </div>
 
-      <div className="card-step-header">
-        <span className="card-step-count">{current + 1}</span>
-        <span className="card-step-total">/ {MAX_GOALS}</span>
+      <div className="page-header">
+        <div className="step-label">1단계</div>
+        <h1>이루고 싶은 목표가<br />무엇인가요?</h1>
+        <p>모두 적어보세요!</p>
       </div>
 
       <div className="card-input-area">
+        <div className="card-step-count-inline">
+          <span className="card-step-num">{current + 1}</span>
+          <span className="card-step-total">/ {MAX_GOALS}</span>
+        </div>
         <input
           ref={inputRef}
           className="card-input"
