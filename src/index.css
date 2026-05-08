@@ -138,10 +138,8 @@ h1 {
 }
 
 .card-input-area {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap: 24px;
   padding: 20px 0;
 }
