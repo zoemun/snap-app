@@ -10,6 +10,7 @@ export default function Step1({ goals, setGoals, onNext, onBack }) {
     return lastFilled >= 0 ? lastFilled : 0
   })
   const inputRef = useRef(null)
+  const navigatingRef = useRef(false)
 
   useEffect(() => {
     if (goals.length === 0) {
@@ -18,6 +19,7 @@ export default function Step1({ goals, setGoals, onNext, onBack }) {
   }, [])
 
   useEffect(() => {
+    navigatingRef.current = false
     inputRef.current?.focus()
   }, [current])
 
@@ -27,7 +29,8 @@ export default function Step1({ goals, setGoals, onNext, onBack }) {
   const isCurrentFilled = currentValue.trim().length > 0
 
   function goNext() {
-    if (!isCurrentFilled) return
+    if (!isCurrentFilled || navigatingRef.current) return
+    navigatingRef.current = true
     if (current + 1 >= goals.length) {
       if (goals.length < MAX_GOALS) {
         setGoals(prev => [...prev, ''])
@@ -41,7 +44,7 @@ export default function Step1({ goals, setGoals, onNext, onBack }) {
   }
 
   function handleKeyDown(e) {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !e.repeat) {
       e.preventDefault()
       goNext()
     }
